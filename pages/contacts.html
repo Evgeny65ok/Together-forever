@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Крепыш</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .contacts-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .contact-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+        
+        .icon {
+            width: 40px;
+            height: 40px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .icon.location { background: #e74c3c; }
+        .icon.phone { background: #2ecc71; }
+        .icon.email { background: #9b59b6; }
+        .icon.clock { background: #f39c12; }
+        
+        .contact-details h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+        }
+        
+        .contact-details p {
+            margin: 0;
+            color: #7f8c8d;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #f8f9fa;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: transform 0.3s;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-3px);
+            background: #3498db;
+            color: white;
+        }
+        
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 400px;
+            background: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+        
+        .map-placeholder {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .contact-form {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .submit-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: #219653;
+        }
+        
+        .staff-contact {
+            background: #fff8e1;
+            border-left: 5px solid #f39c12;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        
+        .emergency-contact {
+            background: #ffebee;
+            border-left: 5px solid #e74c3c;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        
+        .qr-code {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: #ecf0f1;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>КРЕПЫШ</h1>
+        <nav>
+            <a href="../index.html">Главная</a>
+            <a href="services.html">Услуги</a>
+            <a href="trainers.html">Тренеры</a>
+            <a href="schedule.html">Расписание</a>
+            <a href="contacts.html">Контакты</a>
+            <a href="blog.html">Блог</a>
+        </nav>
+    </header>
+    
+    <main class="contacts-container">
+        <h2>📞 Контакты</h2>
+        <p>Мы всегда рады помочь и ответить на ваши вопросы. Выберите удобный способ связи.</p>
+        
+        <div class="contacts-grid">
+            <!-- Левая колонка: Контактная информация -->
+            <div>
+                <div class="contact-card">
+                    <h3>📍 Наш адрес</h3>
+                    
+                    <div class="contact-info">
+                        <div class="icon location">📍</div>
+                        <div class="contact-details">
+                            <h4>Основной фитнес-центр</h4>
+                            <p>г. Москва, ул. Спортивная, д. 15<br>
+                               Бизнес-центр "Олимп", 3 этаж<br>
+                               Ближайшее метро: Спортивная (5 мин. пешком)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <div class="icon location">📍</div>
+                        <div class="contact-details">
+                            <h4>Филиал "Крепыш Premium"</h4>
+                            <p>г. Москва, Ленинский проспект, д. 42<br>
+                               ТЦ "Галактика", 2 этаж<br>
+                               Ближайшее метро: Ленинский проспект</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>📞 Телефоны</h3>
+                    
+                    <div class="contact-info">
+                        <div class="icon phone">📞</div>
+                        <div class="contact-details">
+                            <h4>Общая информация и запись</h4>
+                            <p style="font-size: 1.2rem; color: #2c3e50; font-weight: bold;">
+                                +7 (495) 123-45-67
+                            </p>
+                            <p>Ежедневно с 8:00 до 22:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <div class="icon phone">📞</div>
+                        <div class="contact-details">
+                            <h4>Отдел корпоративных клиентов</h4>
+                            <p>+7 (495) 987-65-43</p>
+                            <p>Пн-Пт с 10:00 до 19:00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <h3>✉️ Электронная почта</h3>
+                    
+                    <div class="contact-info">
+                        <div class="icon email">✉️</div>
+                        <div class="contact-details">
+                            <h4>Общие вопросы</h4>
+                            <p>info@krepysh-fitness.ru</p>
+                            <p>Ответ в течение 24 часов</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <div class="icon email">✉️</div>
+                        <div class="contact-details">
+                            <h4>Техническая поддержка</h4>
+                            <p>support@krepysh-fitness.ru</p>
+                            <p>По вопросам работы сайта и приложения</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <div class="icon email">✉️</div>
+                        <div class="contact-details">
+                            <h4>Отдел кадров</h4>
+                            <p>hr@krepysh-fitness.ru</p>
+                            <p>Для соискателей вакансий</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Правая колонка: Карта и форма -->
+            <div>
+                <div class="contact-card">
+                    <h3>🗺️ Как нас найти</h3>
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🗺️</div>
+                            <p>Здесь будет интерактивная карта</p>
+                            <p style="font-size: 0.9rem; margin-top: 0.5rem;">(Google Maps / Яндекс.Карты)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info" style="margin-top: 1.5rem;">
+                        <div class="icon clock">🕐</div>
+                        <div class="contact-details">
+                            <h4>Часы работы</h4>
+                            <p><strong>Основной зал:</strong> Круглосуточно, 24/7</p>
+                            <p><strong>Групповые занятия:</strong> 7:00 - 23:00</p>
+                            <p><strong>Бассейн:</strong> 6:00 - 22:00</p>
+                            <p><strong>Ресепшен:</strong> 8:00 - 22:00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>📝 Форма обратной связи</h3>
+                    <p>Оставьте свои контакты, и мы перезвоним вам в течение 30 минут</p>
+                    
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Имя *</label>
+                                <input type="text" id="name" required placeholder="Введите ваше имя">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Телефон *</label>
+                                <input type="tel" id="phone" required placeholder="+7 (___) ___-__-__">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="example@mail.ru">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="topic">Тема обращения</label>
+                            <select id="topic">
+                                <option value="">Выберите тему</option>
+                                <option value="consultation">Консультация по услугам</option>
+                                <option value="trial">Пробное занятие</option>
+                                <option value="corporate">Корпоративный фитнес</option>
+                                <option value="partnership">Сотрудничество</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" rows="4" placeholder="Опишите ваш вопрос..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">📤 Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Дополнительная информация -->
+        <div class="staff-contact">
+            <h3>👥 Контакты руководства</h3>
+            <p><strong>Директор:</strong> Сергей Владимирович Петров | тел. +7 (495) 111-22-33 (доб. 101)</p>
+            <p><strong>Главный тренер:</strong> Александр Иванов | тел. +7 (495) 111-22-33 (доб. 102)</p>
+            <p><strong>Администратор:</strong> Анна Сидорова | тел. +7 (495) 111-22-33 (доб. 100)</p>
+        </div>
+        
+        <div class="emergency-contact">
+            <h3>🚨 Экстренная связь</h3>
+            <p>В случае экстренной ситуации в нерабочее время:</p>
+            <p style="font-size: 1.2rem; font-weight: bold;">+7 (926) 123-45-67 (дежурный администратор)</p>
+            <p>Или обратитесь к охране на входе в клуб</p>
+        </div>
+        
+        <!-- Социальные сети -->
+        <div class="contact-card">
+            <h3>🌐 Мы в социальных сетях</h3>
+            <p>Подписывайтесь на наши соцсети, чтобы быть в курсе акций и новостей</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link">
+                    <span style="font-size: 1.2rem;">📱</span> VKontakte
+                </a>
+                <a href="#" class="social-link">
+                    <span style="font-size: 1.2rem;">📷</span> Instagram
+                </a>
+                <a href="#" class="social-link">
+                    <span style="font-size: 1.2rem;">📘</span> Facebook
+                </a>
+                <a href="#" class="social-link">
+                    <span style="font-size: 1.2rem;">🎵</span> TikTok
+                </a>
+                <a href="#" class="social-link">
+                    <span style="font-size: 1.2rem;">📺</span> YouTube
+                </a>
+                <a href="#" class="social-link">
+                    <span style="font-size: 1.2rem;">💬</span> Telegram
+                </a>
+            </div>
+            
+            <div class="qr-code">
+                <h4>📲 Сканируйте для мобильного приложения</h4>
+                <div class="qr-placeholder">QR-код</div>
+                <p>Наведите камеру, чтобы скачать приложение "Крепыш"</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>© 2024 Фитнес-клуб "Крепыш"</p>
+        <p>Страница контактов создана Белеком</p>
+    </footer>
+    
+    <script>
+        // Валидация формы
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const topic = document.getElementById('topic').value;
+            
+            // Простая валидация
+            if (!name.trim()) {
+                alert('Пожалуйста, введите ваше имя');
+                return;
+            }
+            
+            if (!phone.trim()) {
+                alert('Пожалуйста, введите ваш телефон');
+                return;
+            }
+            
+            if (!topic) {
+                alert('Пожалуйста, выберите тему обращения');
+                return;
+            }
+            
+            // Имитация отправки
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Отправка...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Спасибо, ' + name + '! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                this.reset();
+            }, 1500);
+        });
+        
+        // Маска для телефона
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = this.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = '+7 (' + value.substring(1, 4) + ') ' + value.substring(4, 7) + '-' + value.substring(7, 9) + '-' + value.substring(9, 11);
+            }
+            
+            this.value = value.substring(0, 18);
+        });
+        
+        // Клик по соцсетям
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const network = this.textContent.trim();
+                alert('Ссылка на ' + network + ' будет здесь');
+            });
+        });
+    </script>
+</body>
+</html>
