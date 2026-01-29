@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расписание - Крепыш</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .schedule-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .week-navigation {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .week-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .current-week {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #3498db;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .schedule-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .schedule-table td {
+            padding: 1rem;
+            border: 1px solid #ecf0f1;
+            text-align: center;
+            vertical-align: top;
+            height: 100px;
+        }
+        
+        .time-slot {
+            font-weight: bold;
+            background: #f8f9fa;
+        }
+        
+        .class-card {
+            background: #e74c3c;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin: 0.2rem 0;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .class-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .class-card.yoga {
+            background: #2ecc71;
+        }
+        
+        .class-card.power {
+            background: #e67e22;
+        }
+        
+        .class-card.cardio {
+            background: #9b59b6;
+        }
+        
+        .class-card.swimming {
+            background: #3498db;
+        }
+        
+        .class-card.pilates {
+            background: #1abc9c;
+        }
+        
+        .class-info {
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+        }
+        
+        .trainer-name {
+            font-weight: bold;
+            display: block;
+        }
+        
+        .capacity {
+            font-size: 0.7rem;
+            opacity: 0.9;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .schedule-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>КРЕПЫШ</h1>
+        <nav>
+            <a href="../index.html">Главная</a>
+            <a href="services.html">Услуги</a>
+            <a href="trainers.html">Тренеры</a>
+            <a href="schedule.html">Расписание</a>
+            <a href="contacts.html">Контакты</a>
+            <a href="blog.html">Блог</a>
+        </nav>
+    </header>
+    
+    <main class="schedule-container">
+        <div class="schedule-header">
+            <h2>📅 Расписание занятий</h2>
+            <div class="week-navigation">
+                <button class="week-btn">← Предыдущая неделя</button>
+                <div class="current-week">27 мая - 2 июня 2024</div>
+                <button class="week-btn">Следующая неделя →</button>
+            </div>
+        </div>
+        
+        <p>Расписание действует с понедельника по воскресенье. Занятия в группах до 15 человек.</p>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Все занятия</button>
+            <button class="filter-btn" data-filter="yoga">Йога</button>
+            <button class="filter-btn" data-filter="power">Силовые</button>
+            <button class="filter-btn" data-filter="cardio">Кардио</button>
+            <button class="filter-btn" data-filter="swimming">Плавание</button>
+            <button class="filter-btn" data-filter="pilates">Пилатес</button>
+        </div>
+        
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Время</th>
+                    <th>Понедельник</th>
+                    <th>Вторник</th>
+                    <th>Среда</th>
+                    <th>Четверг</th>
+                    <th>Пятница</th>
+                    <th>Суббота</th>
+                    <th>Воскресенье</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 7:00 -->
+                <tr>
+                    <td class="time-slot">07:00 - 08:00</td>
+                    <td>
+                        <div class="class-card yoga" data-type="yoga">
+                            Утренняя йога
+                            <div class="class-info">
+                                <span class="trainer-name">Мария П.</span>
+                                <span class="capacity">🔵 8/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card power" data-type="power">
+                            Функциональный тренинг
+                            <div class="class-info">
+                                <span class="trainer-name">Дмитрий С.</span>
+                                <span class="capacity">🔴 14/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card cardio" data-type="cardio">
+                            Интервальный кардио
+                            <div class="class-info">
+                                <span class="trainer-name">Анна К.</span>
+                                <span class="capacity">🟢 5/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card yoga" data-type="yoga">
+                            Йога для начинающих
+                            <div class="class-info">
+                                <span class="trainer-name">Мария П.</span>
+                                <span class="capacity">🟢 6/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card pilates" data-type="pilates">
+                            Утренний пилатес
+                            <div class="class-info">
+                                <span class="trainer-name">Ольга В.</span>
+                                <span class="capacity">🔵 10/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <!-- 9:00 -->
+                <tr>
+                    <td class="time-slot">09:00 - 10:00</td>
+                    <td>
+                        <div class="class-card swimming" data-type="swimming">
+                            Аквааэробика
+                            <div class="class-info">
+                                <span class="trainer-name">Екатерина К.</span>
+                                <span class="capacity">🟢 7/12 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card power" data-type="power">
+                            Силовая тренировка
+                            <div class="class-info">
+                                <span class="trainer-name">Александр И.</span>
+                                <span class="capacity">🔴 15/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card swimming" data-type="swimming">
+                            Плавание для всех
+                            <div class="class-info">
+                                <span class="trainer-name">Инструктор</span>
+                                <span class="capacity">🟢 4/12 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card cardio" data-type="cardio">
+                            Беговая дорожка марафон
+                            <div class="class-info">
+                                <span class="trainer-name">Дмитрий С.</span>
+                                <span class="capacity">🔵 9/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card yoga" data-type="yoga">
+                            Хатха йога
+                            <div class="class-info">
+                                <span class="trainer-name">Мария П.</span>
+                                <span class="capacity">🟢 3/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card power" data-type="power">
+                            Тренировка выходного дня
+                            <div class="class-info">
+                                <span class="trainer-name">Александр И.</span>
+                                <span class="capacity">🔵 11/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card yoga" data-type="yoga">
+                            Воскресная йога
+                            <div class="class-info">
+                                <span class="trainer-name">Мария П.</span>
+                                <span class="capacity">🟢 2/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- 18:00 -->
+                <tr>
+                    <td class="time-slot">18:00 - 19:00</td>
+                    <td>
+                        <div class="class-card power" data-type="power">
+                            Вечерний кач
+                            <div class="class-info">
+                                <span class="trainer-name">Александр И.</span>
+                                <span class="capacity">🔴 15/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card pilates" data-type="pilates">
+                            Пилатес для спины
+                            <div class="class-info">
+                                <span class="trainer-name">Ольга В.</span>
+                                <span class="capacity">🔴 14/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card cardio" data-type="cardio">
+                            Танцевальная аэробика
+                            <div class="class-info">
+                                <span class="trainer-name">Анна К.</span>
+                                <span class="capacity">🔴 13/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card power" data-type="power">
+                            Фитнес для мужчин
+                            <div class="class-info">
+                                <span class="trainer-name">Дмитрий С.</span>
+                                <span class="capacity">🔵 10/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card yoga" data-type="yoga">
+                            Йога для расслабления
+                            <div class="class-info">
+                                <span class="trainer-name">Мария П.</span>
+                                <span class="capacity">🔴 15/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <!-- 20:00 -->
+                <tr>
+                    <td class="time-slot">20:00 - 21:00</td>
+                    <td>
+                        <div class="class-card swimming" data-type="swimming">
+                            Вечернее плавание
+                            <div class="class-info">
+                                <span class="trainer-name">Екатерина К.</span>
+                                <span class="capacity">🟢 6/12 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card cardio" data-type="cardio">
+                            Велотренажеры
+                            <div class="class-info">
+                                <span class="trainer-name">Дмитрий С.</span>
+                                <span class="capacity">🔵 8/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card pilates" data-type="pilates">
+                            Стретчинг
+                            <div class="class-info">
+                                <span class="trainer-name">Ольга В.</span>
+                                <span class="capacity">🟢 5/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card swimming" data-type="swimming">
+                            Аква-здоровье
+                            <div class="class-info">
+                                <span class="trainer-name">Екатерина К.</span>
+                                <span class="capacity">🔵 9/12 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="class-card power" data-type="power">
+                            Силовая в пятницу
+                            <div class="class-info">
+                                <span class="trainer-name">Александр И.</span>
+                                <span class="capacity">🔴 14/15 мест</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="color-box" style="background: #2ecc71;"></div>
+                <span>Йога</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background: #e67e22;"></div>
+                <span>Силовые тренировки</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background: #9b59b6;"></div>
+                <span>Кардио</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background: #3498db;"></div>
+                <span>Плавание</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box" style="background: #1abc9c;"></div>
+                <span>Пилатес</span>
+            </div>
+            <div class="legend-item">
+                <span>🟢 - много мест | 🔵 - мало мест | 🔴 - почти нет мест</span>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem; background: #f8f9fa; padding: 1.5rem; border-radius: 10px;">
+            <h3>📝 Как записаться на занятие?</h3>
+            <p>1. Выберите интересующее занятие в таблице</p>
+            <p>2. Нажмите на карточку с занятием</p>
+            <p>3. Заполните форму записи</p>
+            <p>4. Получите подтверждение на почту</p>
+            <button style="background: #27ae60; color: white; padding: 1rem 2rem; border: none; border-radius: 5px; margin-top: 1rem;">
+                📲 Записаться через мобильное приложение
+            </button>
+        </div>
+    </main>
+    
+    <footer>
+        <p>© 2024 Фитнес-клуб "Крепыш"</p>
+        <p>Расписание создано Даней</p>
+    </footer>
+    
+    <script>
+        // Простой фильтр для занятий
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Убираем активный класс у всех кнопок
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                // Добавляем активный класс текущей кнопке
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                const classCards = document.querySelectorAll('.class-card');
+                
+                classCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-type') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Клик по карточке занятия
+        document.querySelectorAll('.class-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const className = this.textContent.split('\n')[0].trim();
+                alert(`Вы выбрали занятие: ${className}\nДля записи обратитесь к администратору.`);
+            });
+        });
+    </script>
+</body>
+</html>
