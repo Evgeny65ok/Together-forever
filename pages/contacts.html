@@ -438,7 +438,7 @@
     </footer>
     
     <script>
-        // Валидация формы
+        // Валидация формы важная часть
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -446,7 +446,7 @@
             const phone = document.getElementById('phone').value;
             const topic = document.getElementById('topic').value;
             
-            // Простая валидация
+            // Простая валидация попростмоу валидируем
             if (!name.trim()) {
                 alert('Пожалуйста, введите ваше имя');
                 return;
@@ -462,7 +462,7 @@
                 return;
             }
             
-            // Имитация отправки
+            // Имитация отправки сообщений
             const submitBtn = this.querySelector('.submit-btn');
             const originalText = submitBtn.textContent;
             
