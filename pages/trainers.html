@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренеры - Крепыш</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .trainers-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .trainer-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .trainer-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .trainer-img {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+        
+        .trainer-info {
+            padding: 1.5rem;
+        }
+        
+        .trainer-name {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .trainer-specialty {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .trainer-experience {
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .certificates {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        .btn-contact {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>КРЕПЫШ</h1>
+        <nav>
+            <a href="../index.html">Главная</a>
+            <a href="services.html">Услуги</a>
+            <a href="trainers.html">Тренеры</a>
+            <a href="schedule.html">Расписание</a>
+            <a href="contacts.html">Контакты</a>
+            <a href="blog.html">Блог</a>
+        </nav>
+    </header>
+    
+    <main class="trainers-container">
+        <h2>Наши Тренеры</h2>
+        <p>Профессионалы с опытом от 5 лет. Каждый тренер имеет высшее спортивное образование и сертификаты.</p>
+        
+        <div class="trainers-grid">
+            <!-- Тренер 1 -->
+            <div class="trainer-card">
+                <div class="trainer-img">🏋️</div>
+                <div class="trainer-info">
+                    <h3 class="trainer-name">Александр Иванов</h3>
+                    <div class="trainer-specialty">СИЛОВОЙ ТРЕНИНГ</div>
+                    <p>Специалист по пауэрлифтингу и бодибилдингу. Поможет набрать мышечную массу и увеличить силовые показатели.</p>
+                    <div class="trainer-experience">
+                        <strong>Стаж:</strong> 8 лет<br>
+                        <strong>Образование:</strong> НГУ им. Лесгафта
+                    </div>
+                    <div class="certificates">
+                        📜 Сертифицированный тренер FPA<br>
+                        🥇 Чемпион России по пауэрлифтингу 2020
+                    </div>
+                    <button class="btn-contact">Записаться к тренеру</button>
+                </div>
+            </div>
+            
+            <!-- Тренер 2 -->
+            <div class="trainer-card">
+                <div class="trainer-img">🧘</div>
+                <div class="trainer-info">
+                    <h3 class="trainer-name">Мария Петрова</h3>
+                    <div class="trainer-specialty">ЙОГА И ПИЛАТЕС</div>
+                    <p>Специалист по йоге, пилатесу и растяжке. Поможет улучшить гибкость, осанку и снять стресс.</p>
+                    <div class="trainer-experience">
+                        <strong>Стаж:</strong> 6 лет<br>
+                        <strong>Образование:</strong> МГАФК
+                    </div>
+                    <div class="certificates">
+                        📜 Инструктор йоги IYF<br>
+                        📜 Тренер по пилатесу STOTT
+                    </div>
+                    <button class="btn-contact">Записаться к тренеру</button>
+                </div>
+            </div>
+            
+            <!-- Тренер 3 -->
+            <div class="trainer-card">
+                <div class="trainer-img">🏃</div>
+                <div class="trainer-info">
+                    <h3 class="trainer-name">Дмитрий Смирнов</h3>
+                    <div class="trainer-specialty">ФУНКЦИОНАЛЬНЫЙ ТРЕНИНГ</div>
+                    <p>Специалист по снижению веса и функциональному тренингу. Разработает программу для похудения и повышения выносливости.</p>
+                    <div class="trainer-experience">
+                        <strong>Стаж:</strong> 7 лет<br>
+                        <strong>Образование:</strong> РГУФКСМиТ
+                    </div>
+                    <div class="certificates">
+                        📜 Сертификат CrossFit Level 2<br>
+                        📜 Nutrition Coach Precision Nutrition
+                    </div>
+                    <button class="btn-contact">Записаться к тренеру</button>
+                </div>
+            </div>
+            
+            <!-- Тренер 4 -->
+            <div class="trainer-card">
+                <div class="trainer-img">💧</div>
+                <div class="trainer-info">
+                    <h3 class="trainer-name">Екатерина Козлова</h3>
+                    <div class="trainer-specialty">АКВАТРЕНИНГ И РЕАБИЛИТАЦИЯ</div>
+                    <p>Специалист по аквааэробике и реабилитации после травм. Работает с людьми всех возрастов и уровней подготовки.</p>
+                    <div class="trainer-experience">
+                        <strong>Стаж:</strong> 10 лет<br>
+                        <strong>Образование:</strong> СПбГУФК
+                    </div>
+                    <div class="certificates">
+                        📜 Тренер по медицинской реабилитации<br>
+                        📜 Инструктор аквааэробики AEA
+                    </div>
+                    <button class="btn-contact">Записаться к тренеру</button>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: #ecf0f1; padding: 2rem; border-radius: 10px; margin-top: 3rem;">
+            <h3>Как выбрать тренера?</h3>
+            <p>1. Определите свою цель (похудение, набор массы, реабилитация)</p>
+            <p>2. Посмотрите специализацию тренеров</p>
+            <p>3. Запишитесь на пробную тренировку</p>
+            <button style="background: #e74c3c;">Бесплатная консультация</button>
+        </div>
+    </main>
+    
+    <footer>
+        <p>© 2024 Фитнес-клуб "Крепыш"</p>
+        <p>Страница тренеров создана Кириллом</p>
+    </footer>
+</body>
+</html>
